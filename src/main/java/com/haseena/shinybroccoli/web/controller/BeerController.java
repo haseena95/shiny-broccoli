@@ -30,19 +30,23 @@ public class BeerController {
 
 	@GetMapping("/{beerId}")
 	public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId){
+		return null;
 		
-		return new ResponseEntity<>(beerService.getBeerById(beerId),HttpStatus.OK);
+		//return new ResponseEntity<>(beerService.getBeerById(beerId),HttpStatus.OK);
 	}
 	
 	
 	public ResponseEntity handlePostRequest(BeerDto beerDto){
+		return null;
 		
-		BeerDto saveBeerDto = beerService.saveNewBeer(beerDto);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "/api/v1/beer/"+saveBeerDto.getId().toString());
-		
-		return new ResponseEntity(headers,HttpStatus.CREATED);
+		/*
+		 * BeerDto saveBeerDto = beerService.saveNewBeer(beerDto);
+		 * 
+		 * HttpHeaders headers = new HttpHeaders(); headers.add("Location",
+		 * "/api/v1/beer/"+saveBeerDto.getId().toString());
+		 * 
+		 * return new ResponseEntity(headers,HttpStatus.CREATED);
+		 */
 	}
 	
 

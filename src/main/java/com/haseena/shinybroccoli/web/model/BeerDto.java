@@ -1,5 +1,7 @@
 package com.haseena.shinybroccoli.web.model;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -8,15 +10,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BeerDto {
 	
 	
 	private UUID id;
+	private Integer version;
+	
+	private OffsetDateTime createdDate;
+	private OffsetDateTime lastModifiedDate;
+	
 	private String beerName;
-	private String beerStyle;
+	private BeerStyleEnum beerStyle;
+	
 	Long upc;
+	private BigDecimal price;
+	private Integer quantityOnHand;
 
 }
