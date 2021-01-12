@@ -15,59 +15,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.haseena.shinybroccoli.web.model.BeerDto;
-import com.haseena.shinybroccoli.web.service.BeerService;
+import com.haseena.shinybroccoli.web.model.CustomerDto;
+import com.haseena.shinybroccoli.web.service.CustomerService;
+
+
+
 
 @RestController
-@RequestMapping("/api/v1/beer")
-public class BeerController {
+@RequestMapping("/api/v1/customer")
+public class CustomerController {
 	
-	private final BeerService beerService;
+	private  CustomerService customerService;
 	
-	
-	
-	public BeerController(BeerService beerService) {
+public CustomerController(CustomerService custService) {
 		
-		this.beerService = beerService;
+		this.customerService = custService;
 	}
 
 
 
-	@GetMapping("/{beerId}")
-	public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId){
+	@GetMapping("/{custId}")
+	public ResponseEntity<CustomerDto> getBeerById(@PathVariable("custId") UUID custId){
 		
 		
-		return new ResponseEntity<>(BeerDto.builder().build(),HttpStatus.OK);
+		return new ResponseEntity<>(CustomerDto.builder().build(),HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity savNewBeer(@RequestBody BeerDto beerDto){
+	public ResponseEntity savNewBeer(@RequestBody CustomerDto custDto){
 		
 		
 		
-		 BeerDto saveBeerDto = beerService.saveNewBeer(beerDto);
+		CustomerDto saveBeerDto = customerService.saveNewCustomer(custDto);
 		  
 		  HttpHeaders headers = new HttpHeaders(); headers.add("Location",
-		 "/api/v1/beer/"+beerDto.getId().toString());
+		 "/api/v1/customer/"+custDto.getId().toString());
 		  
 		  return new ResponseEntity(headers,HttpStatus.CREATED);
 		
 	}
 	
-	@PutMapping("/{beerId}")
-	public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId,@RequestBody BeerDto beerDto){
+	@PutMapping("/{custId}")
+	public ResponseEntity updateBeerById(@PathVariable("custId") UUID custId,@RequestBody CustomerDto custDto){
 		
-		beerService.updateBeer(beerId,beerDto);
+		customerService.updateCustomer(custId,custDto);
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 	
-	@DeleteMapping("/{beerId}")
+	@DeleteMapping("/{custId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleterBeerById(@PathVariable("beerId") UUID beerId){
+	public void deleterBeerById(@PathVariable("custId") UUID custId){
 		
-		beerService.deleteById(beerId);
+		customerService.deleteById(custId);
 		
 	}
-	
 
 }
