@@ -2,9 +2,13 @@ package com.haseena.shinybroccoli.web.controller;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +27,7 @@ import com.haseena.shinybroccoli.web.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@Validated
 public class CustomerController {
 	
 	private  CustomerService customerService;
@@ -35,14 +40,14 @@ public CustomerController(CustomerService custService) {
 
 
 	@GetMapping("/{custId}")
-	public ResponseEntity<CustomerDto> getBeerById(@PathVariable("custId") UUID custId){
+	public ResponseEntity<CustomerDto> getBeerById(@NotNull @PathVariable("custId") UUID custId){
 		
 		
 		return new ResponseEntity<>(CustomerDto.builder().build(),HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity savNewBeer(@RequestBody CustomerDto custDto){
+	public ResponseEntity savNewBeer(@Valid @RequestBody CustomerDto custDto){
 		
 		
 		
@@ -56,7 +61,7 @@ public CustomerController(CustomerService custService) {
 	}
 	
 	@PutMapping("/{custId}")
-	public ResponseEntity updateBeerById(@PathVariable("custId") UUID custId,@RequestBody CustomerDto custDto){
+	public ResponseEntity updateBeerById(@PathVariable("custId") UUID custId,@Valid @RequestBody CustomerDto custDto){
 		
 		customerService.updateCustomer(custId,custDto);
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
