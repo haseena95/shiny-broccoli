@@ -30,7 +30,7 @@ import com.haseena.shinybroccoli.web.service.BeerService;
 public class BeerController {
 	
 	@Autowired
-	private final BeerService beerService;
+	private  BeerService beerService;
 	
 	
 	
