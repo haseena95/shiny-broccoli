@@ -31,13 +31,13 @@ public class BeerDto {
 	
 	@NotBlank
 	private String beerName;
-	@NotBlank
+
 	private BeerStyleEnum beerStyle;
 	
 	@Positive
 	Long upc;
 	private BigDecimal price;
-	@Positive
+	
 	private Integer quantityOnHand;
 
 }
