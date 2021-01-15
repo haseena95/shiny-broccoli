@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import com.haseena.shinybroccoli.web.service.BeerService;
 @RequestMapping("/api/v1/beer")
 public class BeerController {
 	
+	@Autowired
 	private final BeerService beerService;
 	
 	
