@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ import com.haseena.shinybroccoli.web.service.BeerService;
 
 @RestController
 @RequestMapping("/api/v1/beer")
+@ComponentScan("com.haseena.shinybroccoli")
 public class BeerController {
 	
 	@Autowired
