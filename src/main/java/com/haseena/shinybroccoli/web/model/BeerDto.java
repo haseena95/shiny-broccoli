@@ -38,8 +38,8 @@ public class BeerDto {
 
 	private BeerStyleEnum beerStyle;
 	
-	@Positive
-	Long upc;
+	
+	String upc;
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private BigDecimal price;
 	

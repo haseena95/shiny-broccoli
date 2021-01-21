@@ -1,31 +1,36 @@
-= Sample Service Docs
-Haseena;
-:doctype: book
-:icons:  font
-:source-highlighter: highlightjs
+GET BEER
 
-Sample application demonstrating how to use Spring Rest Docs with JUnit 5.
-
-`BeerControllerTest' makes a call to a very simple service and produces three documentation snippets.
 
 One showing how to make a request using curl:
+include::{snippets}/v1/beer-get/curl-request.adoc[]
 
-include::{snippets}/orders/curl-request.adoc[]
+One showing the http request:
+include::{snippets}/v1/beer-get/http-request.adoc[]
 
-One showing how to make a HTTP request:
-
-include::{snippets}/orders/http-request.adoc[]
-
-One showing how to make a HTTP response:
-
-include::{snippets}/orders/http-response.adoc[]
+One showing the http response:
+include::{snippets}/v1/beer-get/http-response.adoc[]
 
 Response Body:
-
-include::{snippets}/orders/response-body.adoc[]
+include::{snippets}/v1/beer-get/response-body.adoc[]
 
 Response Fields:
+include::{snippets}/v1/beer-get/response-fields.adoc[]
 
-include::{snippets}/orders/response-fields.adoc[]
+
+NEW BEER
 
 
+One showing how to make a request using curl:
+include::{snippets}/v1/beer-new/curl-request.adoc[]
+
+One showing the http request:
+include::{snippets}/v1/beer-new/http-request.adoc[]
+
+One showing the http response:
+include::{snippets}/v1/beer-new/http-response.adoc[]
+
+Response Body:
+include::{snippets}/v1/beer-new/response-body.adoc[]
+
+Response Fields:
+include::{snippets}

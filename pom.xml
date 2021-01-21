@@ -21,6 +21,7 @@
 		<jaxb.version>2.3.0</jaxb.version>
 		<maven.compiler.sources>${java.version}</maven.compiler.sources>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		 <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
 	</properties>
 
 	<dependencies>
@@ -177,6 +178,11 @@
 						<configuration>
 							<backend>html</backend>
 							<doctype>book</doctype>
+							<attributes>
+                    		<snippets>${snippetsDirectory}</snippets> 
+                    		
+               			 </attributes>
+               			
 						</configuration>
 					</execution>
 				</executions>
@@ -187,6 +193,28 @@
 						<version>2.0.5.RELEASE</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.7</version>
+			<executions>
+				<execution>
+					<id>copy-resources</id>
+					<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/static/docs</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-docs</directory>
+								</resource>
+							</resources>
+						</configuration>
+					
+				</execution>
+			</executions>
 			</plugin>
 		</plugins>
 	</build>

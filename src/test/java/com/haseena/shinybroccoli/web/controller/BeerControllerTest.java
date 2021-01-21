@@ -69,7 +69,7 @@ class BeerControllerTest {
 				.param("iscold","yes")
 				.accept(MediaType.APPLICATION_JSON_VALUE))	
 		  .andExpect(MockMvcResultMatchers.status().isOk())
-		  .andDo(document("v1/beer",
+		  .andDo(document("v1/beer-get",
 				 pathParameters(parameterWithName("beerId")
 				  					      .description("UUID of the beer to get.")
 							), 
@@ -103,7 +103,7 @@ class BeerControllerTest {
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(beerDtoJson))
 						.andExpect(MockMvcResultMatchers.status().isCreated())
-						.andDo(document("v1/beer",
+						.andDo(document("v1/beer-new",
 								requestFields(
 										  fields.withPath("id").ignored(),
 										  fields.withPath("version").ignored(),
@@ -134,7 +134,7 @@ class BeerControllerTest {
 	
 	BeerDto getValidBeerDto() {
 		return BeerDto.builder().id(UUID.randomUUID()).beerName("Sonu Beer").beerStyle(BeerStyleEnum.CC).price(new BigDecimal("3.99"))
-				.upc(4888900000L).createdDate(OffsetDateTime.now()).lastModifiedDate(OffsetDateTime.now()).quantityOnHand(20).version(2).build();
+				.upc("0631234200036").createdDate(OffsetDateTime.now()).lastModifiedDate(OffsetDateTime.now()).quantityOnHand(20).version(2).build();
 	}
 	
 	private static class ConstrainedFields {
