@@ -4,46 +4,70 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.haseena.shinybroccoli.domain.Beer;
+import com.haseena.shinybroccoli.repositories.BeerRepository;
+import com.haseena.shinybroccoli.web.mapper.BeerMapper;
 import com.haseena.shinybroccoli.web.model.BeerDto;
-import com.haseena.shinybroccoli.web.model.BeerStyleEnum;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
-
+	private final BeerRepository beerRepository;
+	private final BeerMapper beerMapper;
 	
 
-	 @Override public BeerDto getBeerById(UUID beerId) {
-		 return
-				 BeerDto.builder()
-				 .beerName("Desi Daru")
-				 .id(UUID.randomUUID())
-				 .beerStyle(BeerStyleEnum.AB).build();
-	  
+	 @Override public BeerDto getBeerById(UUID beerId)  {
+		 try {
+			return beerMapper.beerToBeerDto(beerRepository.findById(beerId).orElseThrow(NotFoundExeception::new)
+					 );
+		} catch (NotFoundExeception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+				 
+		 	
 	  
 	  }
 	 
 		
 		 @Override public BeerDto saveNewBeer(BeerDto beerDto) { // TODO
 		  
-			 return BeerDto.builder().beerName("Thanda").id(UUID.randomUUID()).beerStyle(BeerStyleEnum.BB).
-			 	build();
+			 return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));
 		 
 		    
 		 }
 
 
 		@Override
-		public void updateBeer(UUID beerId, BeerDto beerDto) {
-			// TODO Auto-generated method stub
+		public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+			Beer beer = null;
+			try {
+				 beer = beerRepository.findById(beerId).orElseThrow(NotFoundExeception::new);
+			} catch (NotFoundExeception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+					  
+			beer.setBeerName(beerDto.getBeerName());
+			beer.setBeerStyle(beerDto.getBeerStyle().name());
+			beer.setPrice(beerDto.getPrice());
+			beer.setUpc(beerDto.getUpc());
+			return beerMapper.beerToBeerDto(beerRepository.save(beer));
 			
 		}
 
 
 		@Override
 		public void deleteById(UUID beerId) {
-			// TODO Auto-generated method stub
+			beerRepository.deleteById(beerId);
 			
 		}
+
+
+		
 		 
 	 
 	 

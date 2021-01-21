@@ -9,16 +9,22 @@ import org.springframework.stereotype.Component;
 import com.haseena.shinybroccoli.domain.Beer;
 import com.haseena.shinybroccoli.repositories.BeerRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Component
-@ComponentScan("com.haseena.shinybroccoli.repositories")
+@ComponentScan("com.haseena.shinybroccoli")
+
 public class BeerLoader implements CommandLineRunner {
 	
 	
 	  private final BeerRepository beerRepository;
 	  
-	  public BeerLoader(BeerRepository beerRepository) {
-	  
-	  this.beerRepository = beerRepository; }
+		/*
+		 * public BeerLoader(BeerRepository beerRepository) {
+		 * 
+		 * this.beerRepository = beerRepository; }
+		 */
 	 
 	@Override
 	public void run(String... args) throws Exception {

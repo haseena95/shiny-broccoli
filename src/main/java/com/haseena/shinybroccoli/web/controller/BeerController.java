@@ -1,10 +1,7 @@
 package com.haseena.shinybroccoli.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haseena.shinybroccoli.web.model.BeerDto;
 import com.haseena.shinybroccoli.web.service.BeerService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/beer")
 @ComponentScan("com.haseena.shinybroccoli")
@@ -33,14 +35,9 @@ public class BeerController {
 	
 	@Autowired
 	private  BeerService beerService;
+	@Autowired
+	ObjectMapper objectMapper;
 	
-	
-	
-	public BeerController(BeerService beerService) {
-		
-		this.beerService = beerService;
-	}
-
 
 
 	@GetMapping("/{beerId}")
@@ -51,9 +48,9 @@ public class BeerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity savNewBeer(@Valid @RequestBody BeerDto beerDto){
+	public ResponseEntity savNewBeer(@Valid @RequestBody String beerDtoJson) throws JsonMappingException, JsonProcessingException{
 		
-		
+		BeerDto beerDto = objectMapper.readValue(beerDtoJson,BeerDto.class);
 		
 		 BeerDto saveBeerDto = beerService.saveNewBeer(beerDto);
 		  
@@ -65,8 +62,9 @@ public class BeerController {
 	}
 	
 	@PutMapping("/{beerId}")
-	public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId,@Valid @RequestBody BeerDto beerDto){
+	public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId,@Valid @RequestBody String beerDtoJson) throws JsonMappingException, JsonProcessingException{
 		
+		BeerDto beerDto = objectMapper.readValue(beerDtoJson,BeerDto.class);
 		beerService.updateBeer(beerId,beerDto);
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}

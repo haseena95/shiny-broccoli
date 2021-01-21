@@ -125,6 +125,7 @@
 			<artifactId>spring-restdocs-restassured</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	
 	</dependencies>
 
